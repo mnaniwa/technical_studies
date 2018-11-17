@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Data Sender</title>
+</head>
+<body>
+    <h1>I am a sender.</h1>
+
+    <script>
+        localStorage['local-information'] = 'Hello, localStorage World !!! I am a sender !';
+
+        window.addEventListener('message', function(event) {
+            if (event.origin !== "http://localhost:8000")
+                return;
+
+            console.log('sender!');
+            console.log(event);
+
+            event.source.postMessage(localStorage.getItem(event.data), event.origin);
+        }, false);
+    </script>
+</body>
+</html>
